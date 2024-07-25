@@ -1,6 +1,7 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, getByTestId, render, screen } from '@testing-library/react';
 import Post from '.';
 import PostComment from '.';
+
 
 describe('Teste para o componente PostComment', () => {
     it('Deve renderizar o componente corretamente', () => {
@@ -21,5 +22,10 @@ describe('Teste para o componente PostComment', () => {
             target: { value: 'segundo comentário' },
         });
         fireEvent.click(screen.getByTestId('submit-button'));
+
+        const comments = screen.getAllByTestId('comment'); 
+        expect(comments.length).toBe(2); 
+        expect(comments[0]).toHaveTextContent('primeiro comentário');
+        expect(comments[1]).toHaveTextContent('segundo comentário');
     })
 });
